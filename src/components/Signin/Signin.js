@@ -18,10 +18,12 @@ class Signin extends React.Component {
     this.setState({signInPassword: event.target.value})
   }
 
+  saveAuthTokenInSession = (token) => {
+    window.sessionStorage.setItem('token', token);
+  }
+
   onSubmitSignIn = () => {
-    // use the below address if using docker toolbox on windows
     fetch('http://192.168.99.100:3000/signin', {
-    // fetch('https://floating-eyrie-23752.herokuapp.com/signin', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -30,12 +32,14 @@ class Signin extends React.Component {
       })
     })
       .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user)
+      .then(data => {
+        if (data && data.success === "true") {
+          this.saveAuthTokenInSession(data.token)
+          this.props.loadUser(data.user)
           this.props.onRouteChange('home');
         }
       })
+      .catch(console.log)
   }
 
   render() {

@@ -45,6 +45,42 @@ class App extends Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://192.168.99.100:3000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data)
+          if(data && data.id) {
+            fetch(`http://192.168.99.100:3000/profile/${data.id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              }
+            })
+            .then(resp => resp.json())
+            .then(user => {
+              if(user && user.email) {
+                console.log(user);
+                this.loadUser(user)
+                this.onRouteChange('home');
+              }
+            })
+          }
+        })
+        .catch(console.log) 
+    }
+  }
+
+
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -56,22 +92,27 @@ class App extends Component {
   }
 
   calculateFaceLocations = (data) => {
-   return data.outputs[0].data.regions.map(face => {
-      const clarifaiFace = face.region_info.bounding_box;
-    const image = document.getElementById('inputimage');
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
+    if(data && data.outputs) {
+      const image = document.getElementById('inputimage');
+      const width = Number(image.width);
+      const height = Number(image.height);
+      return data.outputs[0].data.regions.map(face => {
+        const clarifaiFace = face.region_info.bounding_box;
+        return {
+          leftCol: clarifaiFace.left_col * width,
+          topRow: clarifaiFace.top_row * height,
+          rightCol: width - (clarifaiFace.right_col * width),
+          bottomRow: height - (clarifaiFace.bottom_row * height)
+        }
+      });
     }
-     });
+    return;
   }
 
   displayFaceBox = (boxes) => {
-    this.setState({boxes: boxes});
+    if (boxes) {
+      this.setState({boxes: boxes});
+    }
   }
 
   onInputChange = (event) => {
@@ -80,10 +121,13 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('http://localhost:3000/imageurl', {
+      fetch('http://192.168.99.100:3000/imageurl', {
       // fetch('https://floating-eyrie-23752.herokuapp.com/imageurl', {
         method: 'post',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token')
+        },
         body: JSON.stringify({
           input: this.state.input
         })
@@ -91,10 +135,13 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          // fetch('http://192.168.99.100:3000/image', {
-          fetch('https://floating-eyrie-23752.herokuapp.com/image', {
+          fetch('http://192.168.99.100:3000/image', {
+          // fetch('https://floating-eyrie-23752.herokuapp.com/image', {
             method: 'put',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': window.sessionStorage.getItem('token')
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })
@@ -127,7 +174,7 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, boxes, isProfileOpen } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isProfileOpen, user } = this.state;
     return (
       <div className="App">
          <Particles className='particles'
@@ -140,7 +187,11 @@ class App extends Component {
         />
         { isProfileOpen &&
           <Modal>
-            <Profile isProfileOpen={isProfileOpen} toggleModal={this.toggleModal} />
+            <Profile 
+              isProfileOpen={isProfileOpen} 
+              toggleModal={this.toggleModal} 
+              loadUser={this.loadUser} 
+              user={user}/>
           </Modal>
         }
         { route === 'home'
