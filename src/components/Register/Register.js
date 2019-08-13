@@ -23,10 +23,14 @@ class Register extends React.Component {
     this.setState({password: event.target.value})
   }
 
-  onSubmitSignIn = () => {
-    // fetch('http://localhost:3000/register', {
-    fetch('https://floating-eyrie-23752.herokuapp.com/register', {
-      method: 'post',
+  saveAuthTokenInSession = (token) => {
+    window.sessionStorage.setItem('token', token);
+  }
+
+  onRegister = () => {
+    fetch('http://192.168.99.100:3000/register', {
+    // fetch('https://floating-eyrie-23752.herokuapp.com/register', {
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         email: this.state.email,
@@ -34,13 +38,27 @@ class Register extends React.Component {
         name: this.state.name
       })
     })
-      .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user)
-          this.props.onRouteChange('home');
+      .then(resp => resp.json())
+      .then(data => {
+        if(data.userId && data.success === 'true') {
+          this.saveAuthTokenInSession(data.token)
+          fetch(`http://192.168.99.100:3000/profile/${data.userId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': data.token
+            }
+          })
+          .then(resp => resp.json())
+          .then(user => {
+            if(user && user.email) {
+              this.props.loadUser(user)
+              this.props.onRouteChange('home');
+            }
+          })
         }
       })
+      .catch(console.log) 
   }
 
   render() {
@@ -83,11 +101,14 @@ class Register extends React.Component {
             </fieldset>
             <div className="">
               <input
-                onClick={this.onSubmitSignIn}
+                onClick={this.onRegister}
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                 type="submit"
                 value="Register"
               />
+            </div>
+            <div className="lh-copy mt3">
+              <p  onClick={() => this.props.onRouteChange('signin')} className="f6 link dim black db pointer">Sign In</p>
             </div>
           </div>
         </main>

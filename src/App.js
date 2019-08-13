@@ -35,7 +35,9 @@ const initialState = {
     name: '',
     email: '',
     entries: 0,
-    joined: ''
+    joined: '',
+    pet: '',
+    age: 30
   }
 }
 
@@ -57,7 +59,6 @@ class App extends Component {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log(data)
           if(data && data.id) {
             fetch(`http://192.168.99.100:3000/profile/${data.id}`, {
               method: 'GET',
@@ -69,7 +70,6 @@ class App extends Component {
             .then(resp => resp.json())
             .then(user => {
               if(user && user.email) {
-                console.log(user);
                 this.loadUser(user)
                 this.onRouteChange('home');
               }
@@ -87,7 +87,9 @@ class App extends Component {
       name: data.name,
       email: data.email,
       entries: data.entries,
-      joined: data.joined
+      joined: data.joined,
+      pet: data.pet,
+      age: data.age
     }})
   }
 
