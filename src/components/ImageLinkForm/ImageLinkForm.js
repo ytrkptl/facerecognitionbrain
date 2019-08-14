@@ -2,20 +2,36 @@ import React from 'react';
 import './ImageLinkForm.css';
 
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
+  // let [selectedFile, fileSelectedHandler] = React.useState('null');
+
   return (
-    <div>
-      <p className='f3'>
+    <div className="padded">
+      <p style={{fontSize: '1.5rem'}}>
         {'This Magic Brain will detect faces in your pictures. Give it a try.'}
       </p>
-      <div className='center'>
-        <div className='form center pa4 br3 shadow-5'>
-          <input className='f4 pa2 w-70 center' type='tex' onChange={onInputChange}/>
+        <div className='form centerItHorizontally flexed'>
+          <input 
+            className='urlInput' 
+            type='text' 
+            placeholder="Paste image url(link) here"
+            onChange={onInputChange}/>
+          <span className="urlInputSpan">Or</span>
+          <div className="fileUploadDiv">
+            <input 
+              className="fileUploadInput"
+              // onChange={(event)=>fileSelectedHandler(selectedFile = event.target.files[0])}
+              type="file"
+              name="image"
+              multiple={false}
+              accept="image/*"/>
+            <span className="fileUploadSpan">Upload an image</span>
+          </div>
           <button
-            className='w-30 grow f4 link ph3 pv2 dib white bg-light-purple'
-            onClick={onButtonSubmit}
-          >Detect</button>
+            className='detectButton'
+            onClick={onButtonSubmit}>
+            Detect
+          </button>
         </div>
-      </div>
     </div>
   );
 }

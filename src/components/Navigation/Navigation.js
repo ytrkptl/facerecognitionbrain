@@ -1,18 +1,24 @@
 import React from 'react';
 import ProfileIcon from '../Profile/ProfileIcon';
+import Logo from '../Logo/Logo';
+import './Navigation.css';
 
-const Navigation = ({ onRouteChange, isSignedIn, toggleModal }) => {
+const Navigation = ({ onRouteChange, isSignedIn, toggleModal, imageToChange }) => {
     if (isSignedIn) {
       return (
-        <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <ProfileIcon onRouteChange={onRouteChange} toggleModal={toggleModal}/>
+        <nav className="navHome">
+          <Logo />
+          <ProfileIcon imageToChange={imageToChange} onRouteChange={onRouteChange} toggleModal={toggleModal}/>
         </nav>
       );
     } else {
       return (
-        <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <p onClick={() => onRouteChange('signin')} className='f3 link dim black underline pa3 pointer'>Sign In</p>
-          <p onClick={() => onRouteChange('register')} className='f3 link dim black underline pa3 pointer'>Register</p>
+        <nav className="nav">
+          <Logo />
+          <div style={{display: 'inline-flex', justifyContent: 'center'}}>
+            <button onClick={() => onRouteChange('signin')} className='customLink'>Sign In</button>
+            <button onClick={() => onRouteChange('register')} className='customLink'>Register</button>
+          </div>
         </nav>
       );
     }

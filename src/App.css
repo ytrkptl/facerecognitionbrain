@@ -1,5 +1,19 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
+  display: grid;
+	grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+  width: 100%;
+}
+
+.homeApp {
+  text-align: center;
+  overflow-x: hidden;
+  display: grid;
+	grid-template-columns: 1fr;
+  grid-template-rows: 1fr 10fr 1fr;
+  width: 100%;
 }
 
 .center {
@@ -14,4 +28,17 @@
   bottom: 0;
   left: 0;
   z-index: -1;
+}
+
+.row1 {
+	grid-row: 1/1;
+}
+.row2 {
+	grid-row: 2/2;
+}
+.row3 {
+	grid-row: 3/3;
+	background-color: red;
+	width: 100%;
+	position: sticky;
 }

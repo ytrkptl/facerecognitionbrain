@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import Logo from './components/Logo/Logo';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Modal from './components/Modal/Modal';
 import Profile from './components/Profile/Profile';
+// import Avatar from 'react-avatar-edit';
 import './App.css';
 
 const particlesOptions = {
@@ -30,6 +30,8 @@ const initialState = {
   route: 'signin',
   isSignedIn: false,
   isProfileOpen: false,
+  className: 'App',
+  imageToChange: 'http://tachyons.io/img/logo.jpg',
   user: {
     id: '',
     name: '',
@@ -121,6 +123,18 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
+  saveAuthTokenInSession = (token) => {
+    window.sessionStorage.setItem('token', token);
+  }
+
+  removeAuthTokenFromSession = (token) => {
+    window.sessionStorage.removeItem(token);
+  }
+
+  changeImageUrl = (source) => {
+    this.setState({imageToChange: source})
+  }
+
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
       fetch('http://192.168.99.100:3000/imageurl', {
@@ -161,9 +175,30 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      return this.setState(initialState)
+      this.setState(initialState)
+      // removeAuthTokenFromSession will remove the 
+      // token from the browswer,
+      // however we may also need to remove it from redis in backend
+      // therefore the below fetch function, which removes it from
+      // redis first and then call the removeAuthTokenFromSession func
+      // above
+      fetch(`http://192.168.99.100:3000/signout`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token')
+        }
+      })
+      .then(response => response.json())
+      .then(value => {
+        if (value) {
+          this.removeAuthTokenFromSession('token');
+        }
+      })
+      .catch(error => console.log(error))
+      return 
     } else if (route === 'home') {
-      this.setState({isSignedIn: true})
+      this.setState({isSignedIn: true, className: 'homeApp'})
     }
     this.setState({route: route});
   }
@@ -178,14 +213,16 @@ class App extends Component {
   render() {
     const { isSignedIn, imageUrl, route, boxes, isProfileOpen, user } = this.state;
     return (
-      <div className="App">
-         <Particles className='particles'
+      <div className={this.state.className}>
+        <Particles className='particles'
           params={particlesOptions}
         />
         <Navigation 
+          className="row1"
           isSignedIn={isSignedIn} 
           onRouteChange={this.onRouteChange} 
           toggleModal={this.toggleModal}
+          imageToChange={this.state.imageToChange}
         />
         { isProfileOpen &&
           <Modal>
@@ -193,12 +230,14 @@ class App extends Component {
               isProfileOpen={isProfileOpen} 
               toggleModal={this.toggleModal} 
               loadUser={this.loadUser} 
+              imageToChange={this.state.imageToChange}
+              changeImageUrl={this.changeImageUrl}
               user={user}/>
           </Modal>
         }
+        <div className="row2">
         { route === 'home'
           ? <div>
-              <Logo />
               <Rank
                 name={this.state.user.name}
                 entries={this.state.user.entries}
@@ -209,12 +248,18 @@ class App extends Component {
               />
               <FaceRecognition boxes={boxes} imageUrl={imageUrl} />
             </div>
-          : (
+          : 
+            (
              route === 'signin'
-             ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+             ? <Signin 
+                 loadUser={this.loadUser} 
+                 saveAuthTokenInSession={this.saveAuthTokenInSession}
+                 onRouteChange={this.onRouteChange}/>
+             : <Register className="row2" loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
             )
         }
+        </div>
+        <footer className="row3">Footer</footer>
       </div>
     );
   }

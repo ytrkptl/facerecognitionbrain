@@ -18,10 +18,6 @@ class Signin extends React.Component {
     this.setState({signInPassword: event.target.value})
   }
 
-  saveAuthTokenInSession = (token) => {
-    window.sessionStorage.setItem('token', token);
-  }
-
   onSubmitSignIn = () => {
     fetch('http://192.168.99.100:3000/signin', {
       method: 'post',
@@ -34,7 +30,7 @@ class Signin extends React.Component {
       .then(response => response.json())
       .then(data => {
         if (data && data.success === "true") {
-          this.saveAuthTokenInSession(data.token)
+          this.props.saveAuthTokenInSession(data.token)
           this.props.loadUser(data.user)
           this.props.onRouteChange('home');
         }

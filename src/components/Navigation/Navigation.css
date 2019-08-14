@@ -1,0 +1,38 @@
+.navHome {
+	display: flex;
+	justify-content: space-between;
+	max-width: 100%;
+}
+
+.nav {
+	display: flex;
+	justify-content: space-between;
+	max-width: 100%;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
+.customLink {
+	font-size: 1.5rem;
+	color: black;
+	cursor: pointer;
+	height: 60px;
+	margin: 10px;
+	padding: 10px;
+	text-decoration: underline;
+	background: none;
+	border:none;
+	outline: none;
+}
+.customLink:hover {
+	color: blue;
+}
+.customLink:active {
+	outline: none;
+}
+
+.customLink:focus {
+	outline: none;
+}
+
+/*f3 link dim black underline pa3 pointer*/
