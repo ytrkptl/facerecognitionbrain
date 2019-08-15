@@ -1,7 +1,13 @@
 .dropdownParentDiv {
 	/*pa4 tc*/
-	padding: 30px 40px;
-	text-align: center;
+	/*padding: 22px;*/
+	text-align: right;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	right: 0;
+	top: 0;
+	/*margin-right: 22px;*/
 }
 
 .homeAvatarImage {

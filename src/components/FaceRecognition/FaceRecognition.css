@@ -9,8 +9,8 @@
 .absoluteDiv {
 	/*absolute mt2*/
 	position: absolute;
-	margin: 20px;
 	margin: auto;
+	margin-top: 20px;
 	object-fit: contain;
 	max-width: 90%;
 }
@@ -22,4 +22,9 @@
   flex-wrap: wrap;
   justify-content: center;
   cursor: pointer;
+}
+
+.inputImage {
+  max-width: 100%;
+  margin: auto;
 }

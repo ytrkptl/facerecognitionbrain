@@ -1,10 +1,12 @@
-.signinArticle {
+.registerArticle {
+	/*ba mv4 w-100 w-50-m w-25-l*/
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 	max-width: 60%;
 	width: 100%;
+	/*32rem*/
 	box-shadow: 4px 4px 8px 0 rgba( 0, 0, 0, .2 );
 	border-radius: 0.5rem;
 	border-color: rgba( 0, 0, 0, .1 );
@@ -16,18 +18,18 @@
   text-align: center;
 }
 
-.signinMain {
+.registerMain {
 	padding: 2rem;
 	color: rgba( 0, 0, 0, .8 );
 	box-sizing: border-box;
 }
 
-.signinMeasure {
+.registerMeasure {
 	max-width: 30em;
 	box-sizing: border-box;
 }
 
-.signinFieldset {
+.registerFieldset {
 	margin-left: 0;
   margin-right: 0;
   padding-left: 0;
@@ -38,7 +40,7 @@
   box-sizing: border-box;
 }
 
-.signinLegend {
+.registerLegend {
 	margin-left: 0;
     margin-right: 0;
         padding-left: 0;
@@ -48,18 +50,18 @@
     box-sizing: border-box;
 }
 
-.belowLegendDivInSignin {
+.belowLegendDiv {
 	margin: 10px 0px;
 }
 
-.belowLegendLabelInSignin {
+.belowLegendLabel {
 	font-size: .875rem;
 	line-height: 1.5;
 	font-weight: 600;
 	display: block;
 }
 
-.belowLegendInputInSignin {
+.belowLegendInput {
 	box-sizing: border-box;
 	padding: .5rem;
 	background-color: transparent;
@@ -67,14 +69,18 @@
 	border-style: solid;
     border-width: 1px;
     width: 100%;
-    margin-bottom: 10px;
 }
-.belowLegendInputInSignin:hover {
+.belowLegendInput:hover {
 	background-color: #000;
 	border-color: white;
 }
 
-.signinButtonInSignin {
+.passwordInRegisterDiv {
+	margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.registerButton {
 	cursor: pointer;
 	transition: all 0.3s ease-out;
 	font-size: 0.875rem;
@@ -89,18 +95,19 @@
   border-style: solid;
   border-width: 1px;
   background-color: transparent;
+  margin-top: 10px;
 }
 
-.signinButtonInSignin:hover {
+.registerButton:hover {
 	transform: scale(1.05);
 }
 
-.belowSigninButtonDiv {
+.belowRegisterButtonDiv {
 	margin-top: 1rem;
   line-height: 1.5;
 }
 
-.registerLinkInSignin {
+.signinLinkInRegister {
 	opacity: 1;
   transition: all 0.3s ease-out;
   font-size: .875rem;
@@ -112,17 +119,15 @@
   margin-top: 10px;
 }
 
-.registerLinkInSignin:hover {
+.signinLinkInRegister:hover {
 	opacity: 0.5;
 	transform: scale(1.05);
 }
-
 @media screen and (max-width: 600px) {
-	.signinArticle {
+	.registerArticle {
 		max-width: 94%;
 	}
-
-	.signinMain {
+	.registerMain {
 		padding: 0.8rem 0;
 	}
 }

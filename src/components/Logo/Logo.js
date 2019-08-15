@@ -5,7 +5,7 @@ import './Logo.css';
 
 const Logo = () => {
   return (
-    <div className='TiltParentDiv'>
+    <div className='TiltParentDiv TiltParentDivMin'>
       <Tilt 
       	className="Tilt" 
       	options={{ max : 55 }}>

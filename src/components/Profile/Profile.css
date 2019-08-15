@@ -46,8 +46,8 @@
 .avatarImageInProfile {
 	border-radius: 100px;
 	border: 1px solid black;
-	margin: 20px;
 	width: 200px;
+	max-width: 100%;
 }
 /*br-100 ba dib mr2*/
 .labelForUsername {
@@ -77,12 +77,12 @@
 }
 
 .saveButton {
-	padding: 10px;
+	padding: 0px 10px;
 	height: 40px;
 	cursor: pointer;
 	border: 2px outset rgba( 0, 0, 0, .2 );
 	color: black;
-	width: 40%;
+	/*width: 40%;*/
 	background: #96ccff;
 	/*border-color: ;*/
 	font-weight: bold;
@@ -93,12 +93,12 @@
 	color: white;
 }
 .cancelButton {
-	padding: 10px;
+	padding: 0px 10px;
 	height: 40px;
 	cursor: pointer;
 	border: 2px outset rgba( 0, 0, 0, .2 );
 	color: black;
-	width: 40%;
+	/*width: 40%;*/
 	background: #ff725c;
 	font-weight: bold;
 	transition: all 0.3s ease;

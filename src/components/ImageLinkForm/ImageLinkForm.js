@@ -6,7 +6,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
 
   return (
     <div className="padded">
-      <p style={{fontSize: '1.5rem'}}>
+      <p className="textAboveForm">
         {'This Magic Brain will detect faces in your pictures. Give it a try.'}
       </p>
         <div className='form centerItHorizontally flexed'>

@@ -1,5 +1,10 @@
 .TiltParentDiv {
-	margin: 2rem;
+	width: 50%;
+	padding-left: 32px;
+	padding-top: 32px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
 .Tilt {
 	top: 0;
@@ -12,4 +17,10 @@
 
 .Tilt-inner {
 	padding: 1rem;
+}
+@media screen and (max-width: 400px) {
+	.TiltParentDivMin {
+		padding-left: 10px;
+		transform: scale(0.9);
+	}
 }

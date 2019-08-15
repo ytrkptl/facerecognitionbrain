@@ -1,4 +1,5 @@
 import React from 'react';
+import './Rank.css';
 
 class Rank extends React.Component {
 	constructor() {
@@ -28,14 +29,14 @@ class Rank extends React.Component {
 
 	render() {
 		return(
-			<div>
-				<div className='white f3'>
+			<div className="rankParent">
+				<div className='rankText'>
 		        	{`${this.props.name}, your current entry count is...`}
 		      	</div>
-				<div className='white f1'>
+				<div className='rankNumber'>
 					{this.props.entries}
 				</div>
-				<div className='white f3'>
+				<div className='rankText'>
 					{`Rank Badge: ${this.state.emoji}`}
 				</div>
 			</div>

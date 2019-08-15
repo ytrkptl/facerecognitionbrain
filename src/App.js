@@ -30,7 +30,6 @@ const initialState = {
   route: 'signin',
   isSignedIn: false,
   isProfileOpen: false,
-  className: 'App',
   imageToChange: 'http://tachyons.io/img/logo.jpg',
   user: {
     id: '',
@@ -213,7 +212,7 @@ class App extends Component {
   render() {
     const { isSignedIn, imageUrl, route, boxes, isProfileOpen, user } = this.state;
     return (
-      <div className={this.state.className}>
+      <div className="App">
         <Particles className='particles'
           params={particlesOptions}
         />
@@ -237,7 +236,7 @@ class App extends Component {
         }
         <div className="row2">
         { route === 'home'
-          ? <div>
+          ? <div className="rankAndImageFormWrapper">
               <Rank
                 name={this.state.user.name}
                 entries={this.state.user.entries}

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Signin/Signin.css';
+import './Register.css';
 
 class Register extends React.Component {
   constructor(props) {
@@ -63,35 +63,35 @@ class Register extends React.Component {
 
   render() {
     return (
-      <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Register</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+      <article className="registerArticle">
+        <main className="registerMain">
+          <div className="registerMeasure">
+            <fieldset id="sign_up" className="registerFieldset">
+              <legend className="registerLegend">Register</legend>
+              <div className="belowLegendDiv">
+                <label className="belowLegendLabel" htmlFor="name">Name</label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 hover-black"
+                  className="belowLegendInput"
                   type="text"
                   name="name"
                   id="name"
                   onChange={this.onNameChange}
                 />
               </div>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+              <div className="belowLegendDiv">
+                <label className="belowLegendLabel" htmlFor="email-address">Email</label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 hover-black"
+                  className="belowLegendInput"
                   type="email"
                   name="email-address"
                   id="email-address"
                   onChange={this.onEmailChange}
                 />
               </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+              <div className="belowLegendDiv">
+                <label className="belowLegendLabel" htmlFor="password">Password</label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 hover-black"
+                  className="belowLegendInput"
                   type="password"
                   name="password"
                   id="password"
@@ -99,16 +99,16 @@ class Register extends React.Component {
                 />
               </div>
             </fieldset>
-            <div className="">
+            <div>
               <input
                 onClick={this.onRegister}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                className="registerButton"
                 type="submit"
                 value="Register"
               />
             </div>
-            <div className="lh-copy mt3">
-              <p  onClick={() => this.props.onRouteChange('signin')} className="f6 link dim black db pointer">Sign In</p>
+            <div className="belowRegisterButtonDiv">
+              <span  onClick={() => this.props.onRouteChange('signin')} className="signinLinkInRegister">Sign In</span>
             </div>
           </div>
         </main>

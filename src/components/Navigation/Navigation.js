@@ -6,16 +6,18 @@ import './Navigation.css';
 const Navigation = ({ onRouteChange, isSignedIn, toggleModal, imageToChange }) => {
     if (isSignedIn) {
       return (
-        <nav className="navHome">
+        <nav className="nav">
           <Logo />
-          <ProfileIcon imageToChange={imageToChange} onRouteChange={onRouteChange} toggleModal={toggleModal}/>
+          <div className="gridCol2">
+            <ProfileIcon imageToChange={imageToChange} onRouteChange={onRouteChange} toggleModal={toggleModal}/>
+          </div>
         </nav>
       );
     } else {
       return (
         <nav className="nav">
           <Logo />
-          <div style={{display: 'inline-flex', justifyContent: 'center'}}>
+          <div className="divInNav">
             <button onClick={() => onRouteChange('signin')} className='customLink'>Sign In</button>
             <button onClick={() => onRouteChange('register')} className='customLink'>Register</button>
           </div>
