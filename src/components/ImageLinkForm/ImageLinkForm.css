@@ -106,6 +106,7 @@
 	text-transform: none;
 	outline: none;
 	min-width: 168.84px;
+	margin-top: 20px;
 }
 
 .detectButton:hover, .detectButton:focus, .detectButton:active {
