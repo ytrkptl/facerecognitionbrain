@@ -21,7 +21,7 @@ class Rank extends React.Component {
 	}
 
 	generateEmoji = (entries) => {
-		fetch(`https://qbnc4wjgp5.execute-api.us-east-1.amazonaws.com/prod/rank?rank=${entries}`)
+		fetch(`${process.env.REACT_APP_LAMBDA_RANK_QUERY}${entries}`)
 			.then(response => response.json())
 			.then(data => this.setState({emoji: data.input}))
 			.catch(console.log)

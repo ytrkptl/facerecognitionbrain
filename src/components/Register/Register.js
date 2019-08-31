@@ -28,8 +28,7 @@ class Register extends React.Component {
   }
 
   onRegister = () => {
-    fetch('http://192.168.99.100:3000/register', {
-    // fetch('https://floating-eyrie-23752.herokuapp.com/register', {
+    fetch(`${process.env.REACT_APP_REGISTER_URL}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -42,7 +41,7 @@ class Register extends React.Component {
       .then(data => {
         if(data.userId && data.success === 'true') {
           this.saveAuthTokenInSession(data.token)
-          fetch(`http://192.168.99.100:3000/profile/${data.userId}`, {
+          fetch(`${process.env.REACT_APP_PROFILE_URL_BEGINNING}/${data.userId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

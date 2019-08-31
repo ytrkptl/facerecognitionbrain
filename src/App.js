@@ -8,7 +8,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Modal from './components/Modal/Modal';
 import Profile from './components/Profile/Profile';
-// import Avatar from 'react-avatar-edit';
+
 import './App.css';
 
 const particlesOptions = {
@@ -51,7 +51,7 @@ class App extends Component {
   componentDidMount() {
     const token = window.sessionStorage.getItem('token');
     if (token) {
-      fetch('http://192.168.99.100:3000/signin', {
+      fetch(`${process.env.REACT_APP_SIGN_IN_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ class App extends Component {
         .then(resp => resp.json())
         .then(data => {
           if(data && data.id) {
-            fetch(`http://192.168.99.100:3000/profile/${data.id}`, {
+            fetch(`${process.env.REACT_APP_PROFILE_URL_BEGINNING}/${data.id}`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -136,8 +136,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('http://192.168.99.100:3000/imageurl', {
-      // fetch('https://floating-eyrie-23752.herokuapp.com/imageurl', {
+      fetch(`${process.env.REACT_APP_IMAGE_URL}`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -150,8 +149,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://192.168.99.100:3000/image', {
-          // fetch('https://floating-eyrie-23752.herokuapp.com/image', {
+          fetch(`${process.env.REACT_APP_IMAGE}`, {
             method: 'put',
             headers: {
               'Content-Type': 'application/json',
@@ -181,7 +179,7 @@ class App extends Component {
       // therefore the below fetch function, which removes it from
       // redis first and then call the removeAuthTokenFromSession func
       // above
-      fetch(`http://192.168.99.100:3000/signout`, {
+      fetch(`${process.env.REACT_APP_SIGN_OUT_URL}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
